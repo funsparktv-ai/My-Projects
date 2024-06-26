@@ -104,7 +104,7 @@
     <script src="https://cdn.jsdelivr.net/npm/skulpt@1.0.0/dist/skulpt-stdlib.js"></script>
     <script>
         var projects = {
-            "todolist": `# ToDo List Python Script
+    "todolist": `# ToDo List Python Script
 class ToDoList:
     def __init__(self):
         self.todos = []
@@ -113,15 +113,15 @@ class ToDoList:
         self.todos.append(task)
 
     def view_list(self):
-        result = "To-Do List:\\n"
+        result = "To-Do List:\n"  // Ensure newline here
         for idx, task in enumerate(self.todos, start=1):
-            result += f"{idx}. {task}\\n"
+            result += f"{idx}. {task}\n";  // Correct usage of Python formatted string
         return result
 
 todo_list = ToDoList()
 
 while True:
-    print("\\n1. Add Task")
+    print("\n1. Add Task")
     print("2. View Tasks")
     print("3. Exit")
     choice = input("Enter your choice (1/2/3): ")
@@ -136,31 +136,7 @@ while True:
         break
     else:
         print("Invalid choice. Please enter 1, 2, or 3.")`
-            // Add more projects as needed
-        };
-
-        var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
-            mode: "python",
-            theme: "eclipse",
-            lineNumbers: true,
-            readOnly: true // Make CodeMirror read-only
-        });
-
-        function runCode() {
-            var selectedProject = document.getElementById('projectSelector').value;
-            var code = projects[selectedProject];
-            var output = document.getElementById('output');
-            output.textContent = ''; // Clear previous output
-            Sk.pre = 'output';
-            Sk.configure({ output: function (text) { output.textContent += text + '\\n'; }, read: function (file) { return projects[file]; } });
-            Sk.misceval.asyncToPromise(function () {
-                return Sk.importMainWithBody('<stdin>', false, code, true);
-            }).then(function (mod) {
-                console.log('Success');
-            }, function (err) {
-                output.textContent = err.toString();
-            });
-        }
+};
 
         document.getElementById('runButton').addEventListener('click', runCode);
         document.getElementById('projectSelector').addEventListener('change', function () {
